@@ -1,24 +1,45 @@
-# README
+# Testing schema caching in Rails production
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+if you need to drop an existing "production" database
+```
+RAILS_ENV=production DISABLE_DATABASE_ENVIRONMENT_CHECK=1 bin/rails db:drop
+```
 
-Things you may want to cover:
+Set up new "production" database with 3 Foos and 3 Bars
 
-* Ruby version
+```
+RAILS_ENV=production bin/rails db:create db:migrate db:seed`
+```
 
-* System dependencies
+Precompile assets a la prod
+``` 
+RAILS_ENV=production bin/rails assets:precompile
+```
 
-* Configuration
+Start a "production" server
+```
+RAILS_ENV=production bin/rails s
+```
 
-* Database creation
+Go to
+- http://0.0.0.0/foos
+- http://0.0.0.0/bars
 
-* Database initialization
+Both should load correctly
 
-* How to run the test suite
+To simulate dropping a column during a production migration, keep the rails server running and run psql
+```
+RAILS_ENV=production bin/rails dbconsole
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+```
+schema_cache_test_production=# ALTER TABLE foos DROP COLUMN x;
+```
 
-* Deployment instructions
+Now reload
 
-* ...
+- http://0.0.0.0/foos
+- http://0.0.0.0/bars
+
+/foos will fail because it makes a direct reference to the dropped column `x`
+however /bars, which still does a `Foo.all` will succeed. But if you look at the column names, `x` will still be there since the application hasn't restarted to pick up the schema changes from postgres.

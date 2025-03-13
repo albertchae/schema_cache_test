@@ -1,0 +1,22 @@
+<h1>All Foos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>X</th>
+      <th>Y</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @foos.each do |foo| %>
+      <tr>
+        <td><%= foo.id %></td>
+        <td><%= foo.x %></td>
+        <td><%= foo.y %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

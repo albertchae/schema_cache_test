@@ -1,0 +1,38 @@
+<h1>All Bars</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Z</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @bars.each do |bar| %>
+      <tr>
+        <td><%= bar.id %></td>
+        <td><%= bar.z %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<h1>Foo ids only</h1>
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @foos.each do |foo| %>
+      <tr>
+        <td><%= foo.id %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

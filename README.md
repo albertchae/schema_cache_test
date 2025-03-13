@@ -43,3 +43,6 @@ Now reload
 
 /foos will fail because it makes a direct reference to the dropped column `x`
 however /bars, which still does a `Foo.all` will succeed. But if you look at the column names, `x` will still be there since the application hasn't restarted to pick up the schema changes from postgres.
+This is because `Foo.all` is doing a `select foos.*` (since `enumerate_columns_in_select_statements = false`)
+
+Checkout the `enumerate-columns` branch to see the difference in behavior with `enumerate_columns_in_select_statements = true`

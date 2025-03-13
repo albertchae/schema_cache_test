@@ -84,5 +84,3 @@ test:
 production:
   <<: *default
   database: schema_cache_test_production
-  username: schema_cache_test
-  password: <%= ENV["SCHEMA_CACHE_TEST_DATABASE_PASSWORD"] %>

@@ -38,5 +38,9 @@ module SchemaCacheTest
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    # Avoid prepared statement cache errors in postgres
+    # https://edgeguides.rubyonrails.org/configuring.html#config-active-record-enumerate-columns-in-select-statements
+    config.active_record.enumerate_columns_in_select_statements = true
   end
 end

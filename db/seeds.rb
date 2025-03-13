@@ -7,3 +7,9 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+
+3.times do |n|
+  Foo.create(x: "x" * (n+1), y: "y" * (n+1))
+  Bar.create(z: "z"* (n+1))
+end
